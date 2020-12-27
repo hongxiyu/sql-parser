@@ -13,7 +13,7 @@ Installation
 
 The package is distributed on NPM and can be installed with...
 
-    npm install sql-parser-mistic
+    npm install sql-parser-care
 
 To build from source you'll need to run the following from the root of the project...
 

@@ -1,13 +1,13 @@
 /*!
- * SQLParser (v1.3.0)
+ * SQLParser (v0.0.1)
  * @copyright 2012-2015 Andy Kent <andy@forward.co.uk>
- * @copyright 2015-2019 Damien "Mistic" Sorel <contact@git.strangeplanet.fr>
+ * @copyright 2015-2020 Damien "Mistic" Sorel <contact@git.strangeplanet.fr>
  * @licence MIT
  */
 (function (global, factory) {
 	typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports) :
 	typeof define === 'function' && define.amd ? define(['exports'], factory) :
-	(global = global || self, factory(global.SQLParser = {}));
+	(global = typeof globalThis !== 'undefined' ? globalThis : global || self, factory(global.SQLParser = {}));
 }(this, (function (exports) { 'use strict';
 
 	function createCommonjsModule(fn, module) {
@@ -33,9 +33,7 @@
 	var STRING = /^'((?:[^\\']+?|\\.|'')*)'(?!')/;
 	var DBLSTRING = /^"([^\\"]*(?:\\.[^\\"]*)*)"/;
 
-	var Lexer =
-	/*#__PURE__*/
-	function () {
+	var Lexer = /*#__PURE__*/function () {
 	  function Lexer(sql, opts) {
 	    if (opts === void 0) {
 	      opts = {};
@@ -841,7 +839,7 @@
 	        case 61:
 	        case 62:
 	        case 64:
-	          this.$ = new yy.Op($$[$0 - 1], $$[$0 - 2], $$[$0]);
+	          this.$ = new yy.Op($$[$0 - 1], $$[$0 - 2], $$[$0], $$[$0 - 3]);
 	          break;
 
 	        case 63:
@@ -2226,7 +2224,6 @@
 	      };
 
 	      var symbol,
-	          preErrorSymbol,
 	          state,
 	          action,
 	          r,
@@ -2286,14 +2283,11 @@
 	            stack.push(action[1]);
 	            symbol = null;
 
-	            if (!preErrorSymbol) {
+	            {
 	              yyleng = lexer.yyleng;
 	              yytext = lexer.yytext;
 	              yylineno = lexer.yylineno;
 	              yyloc = lexer.yylloc;
-	            } else {
-	              symbol = preErrorSymbol;
-	              preErrorSymbol = null;
 	            }
 
 	            break;
@@ -2368,9 +2362,7 @@
 	    }().join('\n');
 	  }
 
-	  exports.Select =
-	  /*#__PURE__*/
-	  function () {
+	  exports.Select = /*#__PURE__*/function () {
 	    function Select(fields, source, distinct, joins, unions) {
 	      if (distinct === void 0) {
 	        distinct = false;
@@ -2431,9 +2423,7 @@
 	    return Select;
 	  }();
 
-	  exports.SubSelect =
-	  /*#__PURE__*/
-	  function () {
+	  exports.SubSelect = /*#__PURE__*/function () {
 	    function SubSelect(select, name) {
 	      if (name === void 0) {
 	        name = null;
@@ -2456,9 +2446,7 @@
 	    return SubSelect;
 	  }();
 
-	  exports.Join =
-	  /*#__PURE__*/
-	  function () {
+	  exports.Join = /*#__PURE__*/function () {
 	    function Join(right, conditions, side, mode) {
 	      if (conditions === void 0) {
 	        conditions = null;
@@ -2497,9 +2485,7 @@
 	    return Join;
 	  }();
 
-	  exports.Union =
-	  /*#__PURE__*/
-	  function () {
+	  exports.Union = /*#__PURE__*/function () {
 	    function Union(query, all1) {
 	      if (all1 === void 0) {
 	        all1 = false;
@@ -2519,9 +2505,7 @@
 	    return Union;
 	  }();
 
-	  exports.LiteralValue =
-	  /*#__PURE__*/
-	  function () {
+	  exports.LiteralValue = /*#__PURE__*/function () {
 	    function LiteralValue(value1, value2) {
 	      if (value2 === void 0) {
 	        value2 = null;
@@ -2558,9 +2542,7 @@
 	    return LiteralValue;
 	  }();
 
-	  exports.StringValue =
-	  /*#__PURE__*/
-	  function () {
+	  exports.StringValue = /*#__PURE__*/function () {
 	    function StringValue(value1, quoteType) {
 	      if (quoteType === void 0) {
 	        quoteType = '\'\'';
@@ -2580,9 +2562,7 @@
 	    return StringValue;
 	  }();
 
-	  exports.NumberValue =
-	  /*#__PURE__*/
-	  function () {
+	  exports.NumberValue = /*#__PURE__*/function () {
 	    function NumberValue(value) {
 	      this.value = Number(value);
 	    }
@@ -2596,9 +2576,7 @@
 	    return NumberValue;
 	  }();
 
-	  exports.ListValue =
-	  /*#__PURE__*/
-	  function () {
+	  exports.ListValue = /*#__PURE__*/function () {
 	    function ListValue(value1) {
 	      this.value = value1;
 	    }
@@ -2612,9 +2590,7 @@
 	    return ListValue;
 	  }();
 
-	  exports.WhitepaceList =
-	  /*#__PURE__*/
-	  function () {
+	  exports.WhitepaceList = /*#__PURE__*/function () {
 	    function WhitepaceList(value1) {
 	      this.value = value1;
 	    }
@@ -2635,9 +2611,7 @@
 	    return WhitepaceList;
 	  }();
 
-	  exports.ParameterValue =
-	  /*#__PURE__*/
-	  function () {
+	  exports.ParameterValue = /*#__PURE__*/function () {
 	    function ParameterValue(value) {
 	      this.value = value;
 	      this.index = parseInt(value.substr(1), 10) - 1;
@@ -2652,9 +2626,7 @@
 	    return ParameterValue;
 	  }();
 
-	  exports.ArgumentListValue =
-	  /*#__PURE__*/
-	  function () {
+	  exports.ArgumentListValue = /*#__PURE__*/function () {
 	    function ArgumentListValue(value1, distinct) {
 	      if (distinct === void 0) {
 	        distinct = false;
@@ -2677,9 +2649,7 @@
 	    return ArgumentListValue;
 	  }();
 
-	  exports.BooleanValue =
-	  /*#__PURE__*/
-	  function () {
+	  exports.BooleanValue = /*#__PURE__*/function () {
 	    function LiteralValue(value) {
 	      this.value = function () {
 	        switch (value.toLowerCase()) {
@@ -2708,9 +2678,7 @@
 	    return LiteralValue;
 	  }();
 
-	  exports.FunctionValue =
-	  /*#__PURE__*/
-	  function () {
+	  exports.FunctionValue = /*#__PURE__*/function () {
 	    function FunctionValue(name, _arguments, udf) {
 	      if (_arguments === void 0) {
 	        _arguments = null;
@@ -2738,9 +2706,7 @@
 	    return FunctionValue;
 	  }();
 
-	  exports.Case =
-	  /*#__PURE__*/
-	  function () {
+	  exports.Case = /*#__PURE__*/function () {
 	    function Case(whens, _else) {
 	      this.whens = whens;
 	      this["else"] = _else;
@@ -2763,9 +2729,7 @@
 	    return Case;
 	  }();
 
-	  exports.CaseWhen =
-	  /*#__PURE__*/
-	  function () {
+	  exports.CaseWhen = /*#__PURE__*/function () {
 	    function CaseWhen(whenCondition, resCondition) {
 	      this.whenCondition = whenCondition;
 	      this.resCondition = resCondition;
@@ -2780,9 +2744,7 @@
 	    return CaseWhen;
 	  }();
 
-	  exports.CaseElse =
-	  /*#__PURE__*/
-	  function () {
+	  exports.CaseElse = /*#__PURE__*/function () {
 	    function CaseElse(elseCondition) {
 	      this.elseCondition = elseCondition;
 	    }
@@ -2796,9 +2758,7 @@
 	    return CaseElse;
 	  }();
 
-	  exports.Order =
-	  /*#__PURE__*/
-	  function () {
+	  exports.Order = /*#__PURE__*/function () {
 	    function Order(orderings, offset) {
 	      this.orderings = orderings;
 	      this.offset = offset;
@@ -2813,9 +2773,7 @@
 	    return Order;
 	  }();
 
-	  exports.OrderArgument =
-	  /*#__PURE__*/
-	  function () {
+	  exports.OrderArgument = /*#__PURE__*/function () {
 	    function OrderArgument(value, direction) {
 	      if (direction === void 0) {
 	        direction = 'ASC';
@@ -2834,9 +2792,7 @@
 	    return OrderArgument;
 	  }();
 
-	  exports.Offset =
-	  /*#__PURE__*/
-	  function () {
+	  exports.Offset = /*#__PURE__*/function () {
 	    function Offset(row_count, limit) {
 	      this.row_count = row_count;
 	      this.limit = limit;
@@ -2851,9 +2807,7 @@
 	    return Offset;
 	  }();
 
-	  exports.Limit =
-	  /*#__PURE__*/
-	  function () {
+	  exports.Limit = /*#__PURE__*/function () {
 	    function Limit(value1, offset) {
 	      this.value = value1;
 	      this.offset = offset;
@@ -2868,9 +2822,7 @@
 	    return Limit;
 	  }();
 
-	  exports.Table =
-	  /*#__PURE__*/
-	  function () {
+	  exports.Table = /*#__PURE__*/function () {
 	    function Table(name, alias, win, winFn, winArg) {
 	      if (alias === void 0) {
 	        alias = null;
@@ -2910,9 +2862,7 @@
 	    return Table;
 	  }();
 
-	  exports.Group =
-	  /*#__PURE__*/
-	  function () {
+	  exports.Group = /*#__PURE__*/function () {
 	    function Group(fields) {
 	      this.fields = fields;
 	      this.having = null;
@@ -2933,9 +2883,7 @@
 	    return Group;
 	  }();
 
-	  exports.Where =
-	  /*#__PURE__*/
-	  function () {
+	  exports.Where = /*#__PURE__*/function () {
 	    function Where(conditions) {
 	      this.conditions = conditions;
 	    }
@@ -2949,9 +2897,7 @@
 	    return Where;
 	  }();
 
-	  exports.Having =
-	  /*#__PURE__*/
-	  function () {
+	  exports.Having = /*#__PURE__*/function () {
 	    function Having(conditions) {
 	      this.conditions = conditions;
 	    }
@@ -2965,27 +2911,27 @@
 	    return Having;
 	  }();
 
-	  exports.Op =
-	  /*#__PURE__*/
-	  function () {
-	    function Op(operation, left, right) {
+	  exports.Op = /*#__PURE__*/function () {
+	    function Op(operation, left, right, leftP) {
+	      var canGroup = operation.toLowerCase() === 'and' || operation.toLowerCase() === 'or';
 	      this.operation = operation;
 	      this.left = left;
+	      this.group = canGroup && leftP === '(';
 	      this.right = right;
 	    }
 
 	    var _proto25 = Op.prototype;
 
 	    _proto25.toString = function toString() {
-	      return "(" + this.left + " " + this.operation.toUpperCase() + " " + this.right + ")";
+	      var l = this.group ? '(' : '';
+	      var r = this.group ? ')' : '';
+	      return "" + l + this.left + " " + this.operation.toUpperCase() + " " + this.right + r;
 	    };
 
 	    return Op;
 	  }();
 
-	  exports.UnaryOp =
-	  /*#__PURE__*/
-	  function () {
+	  exports.UnaryOp = /*#__PURE__*/function () {
 	    function UnaryOp(operator, operand) {
 	      this.operator = operator;
 	      this.operand = operand;
@@ -3000,9 +2946,7 @@
 	    return UnaryOp;
 	  }();
 
-	  exports.BetweenOp =
-	  /*#__PURE__*/
-	  function () {
+	  exports.BetweenOp = /*#__PURE__*/function () {
 	    function BetweenOp(value) {
 	      this.value = value;
 	    }
@@ -3016,9 +2960,7 @@
 	    return BetweenOp;
 	  }();
 
-	  exports.Field =
-	  /*#__PURE__*/
-	  function () {
+	  exports.Field = /*#__PURE__*/function () {
 	    function Field(field, name) {
 	      if (name === void 0) {
 	        name = null;
@@ -3041,9 +2983,7 @@
 	    return Field;
 	  }();
 
-	  exports.Star =
-	  /*#__PURE__*/
-	  function () {
+	  exports.Star = /*#__PURE__*/function () {
 	    function Star() {}
 
 	    var _proto29 = Star.prototype;

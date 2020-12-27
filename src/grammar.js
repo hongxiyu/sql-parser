@@ -241,26 +241,26 @@ const grammar = {
         o('LEFT_PAREN Expression RIGHT_PAREN', function ($2) {
             return $2;
         }),
-        o('Expression MATH Expression', function ($1, $2, $3) {
-            return new Op($2, $1, $3);
+        o('Expression MATH Expression', function ($1, $2, $3, $0) {
+            return new Op($2, $1, $3, $0);
         }),
-        o('Expression MATH_MULTI Expression', function ($1, $2, $3) {
-            return new Op($2, $1, $3);
+        o('Expression MATH_MULTI Expression', function ($1, $2, $3, $0) {
+            return new Op($2, $1, $3, $0);
         }),
-        o('Expression OPERATOR Expression', function ($1, $2, $3) {
-            return new Op($2, $1, $3);
+        o('Expression OPERATOR Expression', function ($1, $2, $3, $0) {
+            return new Op($2, $1, $3, $0);
         }),
-        o('Expression BETWEEN BetweenExpression', function ($1, $2, $3) {
-            return new Op($2, $1, $3);
+        o('Expression BETWEEN BetweenExpression', function ($1, $2, $3, $0) {
+            return new Op($2, $1, $3, $0);
         }),
-        o('Expression CONDITIONAL Expression', function ($1, $2, $3) {
-            return new Op($2, $1, $3);
+        o('Expression CONDITIONAL Expression', function ($1, $2, $3, $0) {
+            return new Op($2, $1, $3, $0);
         }),
         o('Value SUB_SELECT_OP LEFT_PAREN List RIGHT_PAREN', function ($1, $2, $4) {
             return new Op($2, $1, $4);
         }),
-        o('Value SUB_SELECT_OP SubSelectExpression', function ($1, $2, $3) {
-            return new Op($2, $1, $3);
+        o('Value SUB_SELECT_OP SubSelectExpression', function ($1, $2, $3, $0) {
+            return new Op($2, $1, $3, $0);
         }),
         o('SUB_SELECT_UNARY_OP SubSelectExpression', function ($1, $2) {
             return new UnaryOp($1, $2);

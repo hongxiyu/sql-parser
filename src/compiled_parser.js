@@ -216,7 +216,7 @@ case 56:
 this.$ = new yy.Having($$[$0]);
 break;
 case 58: case 59: case 60: case 61: case 62: case 64:
-this.$ = new yy.Op($$[$0-1], $$[$0-2], $$[$0]);
+this.$ = new yy.Op($$[$0-1], $$[$0-2], $$[$0], $$[$0-3]);
 break;
 case 63:
 this.$ = new yy.Op($$[$0-3], $$[$0-4], $$[$0-1]);
