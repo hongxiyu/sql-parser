@@ -4,7 +4,9 @@
 <h1>SQLParser</h1>
 
 <h2>Input</h2>
-<textarea id="input" cols="100" rows="10">select * from test where a = 1 and foo = "bar"</textarea>
+<textarea id="input" cols="100" rows="10">
+    select * from test where (code = 1 and code = 2 and ())
+</textarea>
 <button onclick="parse()">Parse</button>
 
 <h2>Tokens</h2>

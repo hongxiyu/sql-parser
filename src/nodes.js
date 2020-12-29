@@ -382,10 +382,9 @@ exports.Having = class Having {
 
 exports.Op = class Op {
     constructor(operation, left, right, leftP) {
-        const canGroup = operation.toLowerCase() === 'and' || operation.toLowerCase() === 'or';
         this.operation = operation;
         this.left = left;
-        this.group = canGroup && leftP === '(';
+        this.group = false;
         this.right = right;
     }
 

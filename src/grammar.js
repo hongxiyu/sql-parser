@@ -239,6 +239,7 @@ const grammar = {
     ],
     Expression           : [
         o('LEFT_PAREN Expression RIGHT_PAREN', function ($2) {
+            $2.group = true;
             return $2;
         }),
         o('Expression MATH Expression', function ($1, $2, $3, $0) {
@@ -276,7 +277,10 @@ const grammar = {
         }),
         o('Value', function ($1) {
             return $1;
-        })
+        }),
+        o('LEFT_PAREN RIGHT_PAREN', function ($1, $2) {
+            return $1 + $2;
+        }),
     ],
     BetweenExpression    : [
         o('Expression CONDITIONAL Expression', function ($1, $3) {
